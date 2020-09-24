@@ -1,7 +1,7 @@
-pragma solidity 0.6.0;
+pragma solidity 0.4.24;
 
-import "ITellorGetters.sol";
-import "IMedianOracle.sol";
+import "./ITellorGetters.sol";
+import "./IMedianOracle.sol";
 
 contract TellorProvider{
 
@@ -13,7 +13,7 @@ contract TellorProvider{
         uint128 time0;
         uint128 time1;
     }
-    TellorTimes tellorReport;
+    TellorTimes public tellorReport;
     uint256 constant TellorID = 10;
 
 
@@ -25,7 +25,7 @@ contract TellorProvider{
     function pushTellor() external {
         (bool retrieved, uint256 value, uint256 _time) = getTellorData(); 
 
-        require(_time > now.sub(medianOracle.reportExpirationTimeSec) && retrieved, "Tellor value too old");
+        require(_time > now - medianOracle.reportExpirationTimeSec() && retrieved, "Tellor value too old");
 
         //Saving _time in a storage value to quickly verify disputes later
         if(tellorReport.time0 >= tellorReport.time1) {
@@ -38,7 +38,7 @@ contract TellorProvider{
 
     function verifyTellorReports() external {
         //most recent tellor report is in dispute, so let's purge it
-        if(tellor.retrieveData(TellorID, tellorReport.time0) == 0) || (tellor.retrieveData(TellorID,tellorReport.time1) == 0){
+        if(tellor.retrieveData(TellorID, tellorReport.time0) == 0 || tellor.retrieveData(TellorID,tellorReport.time1) == 0){
             medianOracle.purgeReports();
         }
     }
