@@ -68,11 +68,6 @@ contract("MedianOracle:pushReport", async function (accounts) {
     expect(report2["payload"].toString()).to.eq(value);
   });
 
-  it("Fails when report is too old", async () => {
-    await chain.waitForSomeTime(60 * 60 * 24 * 2);
-    expect(await chain.isEthException(tellorProvider.pushTellor())).to.be.true;
-  });
-
   it("Nothing happens when valid report is purged", async () => {
     await tellorProvider.verifyTellorReports();
     await tellorProvider.pushTellor();

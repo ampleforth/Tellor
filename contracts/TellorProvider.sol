@@ -24,9 +24,6 @@ contract TellorProvider{
 
     function pushTellor() external {
         (bool retrieved, uint256 value, uint256 _time) = getTellorData(); 
-
-        require(_time > now - medianOracle.reportExpirationTimeSec() && retrieved, "Tellor value too old");
-
         //Saving _time in a storage value to quickly verify disputes later
         if(tellorReport.time0 >= tellorReport.time1) {
             tellorReport.time1 = uint128(_time);
