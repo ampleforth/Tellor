@@ -1,0 +1,25 @@
+{
+  "name": "tellor",
+  "version": "1.0.0",
+  "description": "Tellor Ampleforth adapter",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ampleforth/Tellor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ampleforth/Tellor/issues"
+  },
+  "homepage": "https://github.com/ampleforth/Tellor#readme",
+  "devDependencies": {
+    "usingtellor": "^2.0.0"
+  }
+}
